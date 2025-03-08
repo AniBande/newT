@@ -1,25 +1,20 @@
 'use client';
-
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
-import { Player } from '@lottiefiles/react-lottie-player'; 
+import { Player } from '@lottiefiles/react-lottie-player';
 
 export default function Page1() {
   const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  if (!isClient) {
-    return null; // Prevents SSR
-  }
-
   const [showProposal, setShowProposal] = useState(true);
   const [backgroundStyle, setBackgroundStyle] = useState(
     'linear-gradient(117deg, #ff41f7 0%, rgba(255, 73, 73, 0.81) 100%)'
   );
+  const textWrapperRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const propose = () => {
     setShowProposal(false);
@@ -27,34 +22,37 @@ export default function Page1() {
   };
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && typeof document !== 'undefined') {
-      import('animejs').then((animeModule) => {
-        const anime = animeModule.default;
-        const textWrapper = document.querySelector('.ml6 .letters');
+    if (!isClient || !showProposal) return;
 
-        if (textWrapper) {
-          textWrapper.innerHTML =
-            textWrapper.textContent?.replace(/\S/g, "<span class='letter'>$&</span>") || '';
+    import('animejs').then((animeModule) => {
+      const anime = animeModule.default;
+      const textWrapper = textWrapperRef.current;
+      
+      if (textWrapper && textWrapper.textContent) {
+        textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+        
+        anime.timeline({ loop: true })
+          .add({
+            targets: '.ml6 .letter',
+            translateY: ['1.1em', 0],
+            translateZ: 0,
+            duration: 750,
+            delay: (el: any, i: number) => 50 * i,
+          })
+          .add({
+            targets: '.ml6',
+            opacity: 0,
+            duration: 1000,
+            easing: 'easeOutExpo',
+            delay: 1000,
+          });
+      }
+    });
+  }, [isClient, showProposal]);
 
-          anime.timeline({ loop: true })
-            .add({
-              targets: '.ml6 .letter',
-              translateY: ['1.1em', 0],
-              translateZ: 0,
-              duration: 750,
-              delay: (el: any, i: number) => 50 * i,
-            })
-            .add({
-              targets: '.ml6',
-              opacity: 0,
-              duration: 1000,
-              easing: 'easeOutExpo',
-              delay: 1000,
-            });
-        }
-      });
-    }
-  }, [showProposal]);
+  if (!isClient) {
+    return null; // Prevents SSR
+  }
 
   return (
     <>
@@ -62,7 +60,6 @@ export default function Page1() {
         <title>Propose</title>
         <meta name="description" content="A sweet proposal page ❤️" />
       </Head>
-
       <div
         style={{
           height: '100vh',
@@ -102,13 +99,12 @@ export default function Page1() {
             />
             <h1 className="ml6">
               <span className="text-wrapper">
-                <span className="letters">I Love you!</span>
+                <span className="letters" ref={textWrapperRef}>I Love you!</span>
               </span>
             </h1>
           </div>
         )}
       </div>
-
       <Script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js" strategy="afterInteractive" />
     </>
   );
