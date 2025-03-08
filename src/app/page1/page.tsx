@@ -13,7 +13,7 @@ export default function Page1() {
   }, []);
 
   if (!isClient) {
-    return null; // Prevents server-side rendering
+    return null; // Prevents SSR
   }
 
   const [showProposal, setShowProposal] = useState(true);
@@ -27,31 +27,33 @@ export default function Page1() {
   };
 
   useEffect(() => {
-    import('animejs').then((animeModule) => {
-      const anime = animeModule.default;
-      const textWrapper = document.querySelector('.ml6 .letters');
+    if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+      import('animejs').then((animeModule) => {
+        const anime = animeModule.default;
+        const textWrapper = document.querySelector('.ml6 .letters');
 
-      if (textWrapper) {
-        textWrapper.innerHTML =
-          textWrapper.textContent?.replace(/\S/g, "<span class='letter'>$&</span>") || '';
+        if (textWrapper) {
+          textWrapper.innerHTML =
+            textWrapper.textContent?.replace(/\S/g, "<span class='letter'>$&</span>") || '';
 
-        anime.timeline({ loop: true })
-          .add({
-            targets: '.ml6 .letter',
-            translateY: ['1.1em', 0],
-            translateZ: 0,
-            duration: 750,
-            delay: (el: any, i: number) => 50 * i,
-          })
-          .add({
-            targets: '.ml6',
-            opacity: 0,
-            duration: 1000,
-            easing: 'easeOutExpo',
-            delay: 1000,
-          });
-      }
-    });
+          anime.timeline({ loop: true })
+            .add({
+              targets: '.ml6 .letter',
+              translateY: ['1.1em', 0],
+              translateZ: 0,
+              duration: 750,
+              delay: (el: any, i: number) => 50 * i,
+            })
+            .add({
+              targets: '.ml6',
+              opacity: 0,
+              duration: 1000,
+              easing: 'easeOutExpo',
+              delay: 1000,
+            });
+        }
+      });
+    }
   }, [showProposal]);
 
   return (
