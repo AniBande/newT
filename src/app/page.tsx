@@ -6,7 +6,7 @@ export default function Home() {
         Hii Sandhya ❤️
       </h1>
       <p className="text-lg text-gray-300 italic">
-        "uuuuuuuuummmmmmmhhhhhhhhaaaaaaaaaa"
+        uuuuuuuuummmmmmmhhhhhhhhaaaaaaaaaa
       </p>
       
       <div className="mt-10 flex space-x-4">
