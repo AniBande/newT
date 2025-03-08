@@ -7,7 +7,7 @@ import Head from 'next/head';
 import Script from 'next/script';
 import { Player } from '@lottiefiles/react-lottie-player'; // Updated import
 
-export default function ProposePage() {
+export default function Page1() {
   const [showProposal, setShowProposal] = useState(true);
   const [backgroundStyle, setBackgroundStyle] = useState(
     'linear-gradient(117deg, #ff41f7 0%, rgba(255, 73, 73, 0.81) 100%)'

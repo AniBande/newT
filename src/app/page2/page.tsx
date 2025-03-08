@@ -3,13 +3,6 @@
 import { useState,useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-interface StarProps {
-  top: number;
-  left: number;
-  size: number;
-  delay: number;
-  duration: number;
-}
 
 
 export default function LovePage() {
