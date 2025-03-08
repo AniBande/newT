@@ -3,7 +3,7 @@
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 
-const text = " I vow to help you cherish every moment, to hold you close in warmth and tenderness. To listen not just with my ears but with my heart. To adore your laughter, wipe away your tears, and walk beside you through every adventure. I promise to love you endlessly, as you are my forever, my dream, my home. ✨💖";
+const text = " I vow to help you love life, to always hold you with tenderness, and to have the patience that the love demands. To speak when words are needed and to share the silence when they're not.To agree to disagree on red velvet cake. And to live within the warmth of you heart and always call it home ✨✨.";
 
 export default function LovePage() {
   const [displayedText, setDisplayedText] = useState("");
