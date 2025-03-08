@@ -11,32 +11,6 @@ interface StarProps {
   duration: number;
 }
 
-const Star: React.FC<StarProps> = ({ top, left, size, delay, duration }) => {
-  return (
-    <motion.div
-      className="absolute"
-      style={{
-        top: `${top}%`,
-        left: `${left}%`,
-        width: `${size}px`,
-        height: `${size}px`,
-        backgroundColor: 'white',
-        borderRadius: '50%',
-      }}
-      initial={{ opacity: 0 }}
-      animate={{ 
-        opacity: [0, 0.7, 0.3, 0.7, 0], 
-        scale: [0, 1, 0.8, 1, 0] 
-      }}
-      transition={{
-        repeat: Infinity,
-        duration: duration,
-        delay: delay,
-        ease: "easeInOut"
-      }}
-    />
-  );
-};
 
 export default function LovePage() {
   const [loading, setLoading] = useState(false);

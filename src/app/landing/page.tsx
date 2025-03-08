@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 
 const text = " I vow to help you cherish every moment, to hold you close in warmth and tenderness. To listen not just with my ears but with my heart. To adore your laughter, wipe away your tears, and walk beside you through every adventure. I promise to love you endlessly, as you are my forever, my dream, my home. ✨💖";
