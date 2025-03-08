@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
@@ -6,6 +6,16 @@ import Script from 'next/script';
 import { Player } from '@lottiefiles/react-lottie-player'; 
 
 export default function Page1() {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return null; // Prevents server-side rendering
+  }
+
   const [showProposal, setShowProposal] = useState(true);
   const [backgroundStyle, setBackgroundStyle] = useState(
     'linear-gradient(117deg, #ff41f7 0%, rgba(255, 73, 73, 0.81) 100%)'
@@ -17,40 +27,38 @@ export default function Page1() {
   };
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && !showProposal) {
-      import('animejs').then((animeModule) => {
-        const anime = animeModule.default;
-        const textWrapper = document.querySelector('.ml6 .letters');
+    import('animejs').then((animeModule) => {
+      const anime = animeModule.default;
+      const textWrapper = document.querySelector('.ml6 .letters');
 
-        if (textWrapper) {
-          textWrapper.innerHTML =
-            textWrapper.textContent?.replace(/\S/g, "<span class='letter'>$&</span>") || '';
-          
-          anime.timeline({ loop: true })
-            .add({
-              targets: '.ml6 .letter',
-              translateY: ['1.1em', 0],
-              translateZ: 0,
-              duration: 750,
-              delay: (el: any, i: number) => 50 * i,
-            })
-            .add({
-              targets: '.ml6',
-              opacity: 0,
-              duration: 1000,
-              easing: 'easeOutExpo',
-              delay: 1000,
-            });
-        }
-      });
-    }
+      if (textWrapper) {
+        textWrapper.innerHTML =
+          textWrapper.textContent?.replace(/\S/g, "<span class='letter'>$&</span>") || '';
+
+        anime.timeline({ loop: true })
+          .add({
+            targets: '.ml6 .letter',
+            translateY: ['1.1em', 0],
+            translateZ: 0,
+            duration: 750,
+            delay: (el: any, i: number) => 50 * i,
+          })
+          .add({
+            targets: '.ml6',
+            opacity: 0,
+            duration: 1000,
+            easing: 'easeOutExpo',
+            delay: 1000,
+          });
+      }
+    });
   }, [showProposal]);
 
   return (
     <>
       <Head>
         <title>Propose</title>
-        <meta name="description" content="You are the only one who understands me even more than myself..." />
+        <meta name="description" content="A sweet proposal page ❤️" />
       </Head>
 
       <div
