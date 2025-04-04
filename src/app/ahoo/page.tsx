@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
+
 export default function HomePage() {
   const router = useRouter();
 
@@ -26,6 +27,12 @@ export default function HomePage() {
           onClick={() => router.push('/page2')}
         >
           Experience Three
+        </button>
+        <button
+          className="px-6 py-3 bg-red-500 text-lg font-semibold rounded-full shadow-lg hover:bg-red-700 transition"
+          onClick={() => router.push('/VideoCall')}
+        >
+          VideoCall
         </button>
       </div>
     </div>
