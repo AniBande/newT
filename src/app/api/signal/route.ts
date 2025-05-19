@@ -26,11 +26,9 @@ export async function POST(req: NextRequest) {
 
     roomConnections.forEach(([id, controller]) => {
       if (id !== clientId) {
-        controller.enqueue({
-          type,
-          data,
-          clientId
-        });
+        controller.enqueue(
+          new TextEncoder().encode(JSON.stringify({ type, data, clientId }))
+        );
       }
     });
 
