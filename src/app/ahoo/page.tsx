@@ -34,6 +34,30 @@ export default function HomePage() {
         >
           VideoCall
         </button>
+        
+        <div> 
+       
+        <button
+          className="px-6 py-3 bg-red-500 text-lg font-semibold rounded-full shadow-lg hover:bg-red-700 transition"
+          onClick={() => router.push('/wish')}
+        >
+          I Love You 
+        </button>
+        <button
+          className="px-6 py-3 bg-red-500 text-lg font-semibold rounded-full shadow-lg hover:bg-red-700 transition"
+          onClick={() => router.push('/anni')}
+        >
+          I Love You 
+        </button>
+        
+        <button
+          className="px-6 py-3 bg-red-500 text-lg font-semibold rounded-full shadow-lg hover:bg-red-700 transition"
+          onClick={() => router.push('/anniversary')}
+        >
+          I Love You
+        </button>
+        </div>
+        
       </div>
     </div>
   );
