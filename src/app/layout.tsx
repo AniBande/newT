@@ -1,6 +1,21 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Dancing_Script } from "next/font/google";
+import { Inter, Playfair_Display, Montserrat } from 'next/font/google'
+
 import "./globals.css";
+
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  variable: '--font-playfair', // CSS variable for this font
+  display: 'swap',
+})
+
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  variable: '--font-montserrat', // CSS variable for this font
+  display: 'swap',
+})
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +45,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${dancingScript.variable} antialiased`}
+        className={`${playfair.variable} ${montserrat.variable} ${geistSans.variable} ${geistMono.variable} ${dancingScript.variable} antialiased`}
       >
         {children}
       </body>
